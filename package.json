@@ -1,0 +1,11 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-brain-js": "~0.0.1",
+        "node-red-contrib-gemini": "~1.0.3",
+        "node-red-dashboard": "~3.6.6"
+    }
+}

@@ -1,0 +1,1347 @@
+[
+    {
+        "id": "d324126c941e7540",
+        "type": "tab",
+        "label": "Flow nuevo",
+        "disabled": false,
+        "info": "",
+        "env": [
+            {
+                "name": "WELL_TOKEN",
+                "value": "well01-secret-2024",
+                "type": "str"
+            }
+        ]
+    },
+    {
+        "id": "d9e5246df3fbe691",
+        "type": "mqtt-broker",
+        "name": "Oil",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b38518ecd6554ebd",
+        "type": "gemini-api-key",
+        "name": "API Key 1"
+    },
+    {
+        "id": "f5590d5a737cbcba",
+        "type": "ui_tab",
+        "name": "Pozo Petrolero",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "826c9ee067b90f61",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6",
+            "node-red-contrib-brain-js": "0.0.1",
+            "node-red-contrib-gemini": "1.0.3"
+        }
+    },
+    {
+        "id": "0002949b5fe2957f",
+        "type": "ui_group",
+        "name": "Sensors",
+        "tab": "f5590d5a737cbcba",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7d9ef8004c9b6ee5",
+        "type": "ui_group",
+        "name": "Status Monitoring",
+        "tab": "f5590d5a737cbcba",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a11a454d08b04c22",
+        "type": "ui_group",
+        "name": "Recomendaciones del Operador IA",
+        "tab": "f5590d5a737cbcba",
+        "order": 3,
+        "disp": true,
+        "width": 12,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9585516a83fbcb28",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "7bf4dc669b211898",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Simulador sensores pozo",
+        "func": "// Si viene como string, lo parseamos\nlet data = msg.payload;\n\nif (typeof data === \"string\") {\n    data = JSON.parse(data);\n}\n\n// --- Escalado de presión: 0–1100 (raw) -> rango real del sensor en PSI ---\nconst IN_MIN  = 300;\nconst IN_MAX  = 1100;\nconst OUT_MIN = 200;    // <-- ajusta al mínimo real del sensor (PSI)\nconst OUT_MAX = 3000;   // <-- ajusta al máximo real del sensor (PSI)\n\nlet rawPressure = Number(data.pressure);\n// Clamp para que nunca salga del rango de entrada\nrawPressure = Math.max(IN_MIN, Math.min(IN_MAX, rawPressure));\n\n// Mapeo lineal 0–1100  ->  OUT_MIN–OUT_MAX\nlet pressure = OUT_MIN + (rawPressure - IN_MIN) * (OUT_MAX - OUT_MIN) / (IN_MAX - IN_MIN);\n\n// Resto de los valores\nlet temperature = data.temperature;\n\n// Convertimos vibración a un único valor (magnitud)\nlet vibration = Number(data.vibration);   // ya en mm/s RMS\n\nlet floww = data.floww;\n\n// Construcción del payload final\nmsg.payload = {\n    timestamp: Date.now(),\n    well_id: data.well_id || \"WELL-01\",\n    _trueLabel: data._trueLabel,\n    sensors: {\n        pressure: pressure,\n        temperature: temperature,\n        vibration: vibration,\n        floww: floww\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "f9479a305cef5611",
+                "8ed1e5ecb96b4cc9",
+                "10b07dae4accfdf2",
+                "8420a0299d6d341f",
+                "2cc347bb259eb228",
+                "fa51ed470cecea49"
+            ]
+        ]
+    },
+    {
+        "id": "80fe0d24a3489671",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Validar token MQTT",
+        "func": "const EXPECTED_TOKEN = env.get(\"WELL_TOKEN\") || \"well01-secret-2024\";\n\nlet data = msg.payload;\n\n// El mqtt in puede entregar string u objeto segun config -> normalizamos\nif (typeof data === \"string\") {\n    try {\n        data = JSON.parse(data);\n    } catch (e) {\n        msg._auth = \"invalid_json\";\n        node.warn(\"Mensaje MQTT descartado: JSON invalido\");\n        return msg;\n    }\n}\n\n// Validacion del token\nif (!data || typeof data !== \"object\" || !data.token) {\n    msg._auth = \"missing_token\";\n    node.warn(\"Mensaje MQTT descartado: sin token\");\n    return msg;\n}\n\nif (data.token !== EXPECTED_TOKEN) {\n    msg._auth = \"bad_token\";\n    node.warn(\"Mensaje MQTT descartado: token incorrecto\");\n    return msg;\n}\n\n// Token OK. Quitamos el token del payload para que no viaje por el resto del flow.\ndelete data.token;\n\n// Extract ground-truth label from SKAB columns before they are dropped downstream.\n// anomaly=1 -> anomaly | changepoint=1 (anomaly=0) -> warning | both 0 -> normal\nif (data.anomaly !== undefined) {\n    msg._trueLabel = Number(data.anomaly) === 1 ? \"anomaly\" : \"normal\";\n}\n\nif (msg._trueLabel === undefined) {\n    node.warn(\"[WARN] anomaly/changepoint missing from MQTT payload. Fields: \" + Object.keys(data).join(\",\"));\n}\n\nmsg.payload = data;\nmsg.payload._trueLabel = msg._trueLabel;\nmsg._auth = \"ok\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "468f3e65529a3606"
+            ]
+        ]
+    },
+    {
+        "id": "468f3e65529a3606",
+        "type": "switch",
+        "z": "d324126c941e7540",
+        "name": "Ruteo por autenticacion",
+        "property": "_auth",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ok",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "7bf4dc669b211898"
+            ],
+            [
+                "02712ee91c2a7054"
+            ]
+        ]
+    },
+    {
+        "id": "02712ee91c2a7054",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "Mensajes rechazados",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "_auth",
+        "targetType": "msg",
+        "statusVal": "_auth",
+        "statusType": "msg",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f9479a305cef5611",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "8ed1e5ecb96b4cc9",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Buffer ventana pozo",
+        "func": "let buffer = flow.get(\"well_buffer\") || [];\n\nbuffer.push(msg.payload);\n\nif (buffer.length < 10) {\n    flow.set(\"well_buffer\", buffer);\n    return null;\n}\n\n// Majority-vote _trueLabel from the 10 accumulated samples\nlet labelCounts = { normal: 0, anomaly: 0 };\nbuffer.forEach(function(s) {\n    if (s._trueLabel && labelCounts[s._trueLabel] !== undefined) {\n        labelCounts[s._trueLabel]++;\n    }\n});\nmsg._trueLabel = labelCounts.anomaly >= labelCounts.normal ? \"anomaly\" : \"normal\";\n\n// Strip _trueLabel from samples so it doesn't reach Calculo de features\nlet samples = buffer.map(function(s) {\n    let clean = Object.assign({}, s);\n    delete clean._trueLabel;\n    return clean;\n});\n\n// Reset buffer for next fixed window\nflow.set(\"well_buffer\", []);\n\nmsg.payload = {\n    well_id: msg.payload.well_id,\n    window_size: samples.length,\n    ready: true,\n    samples: samples\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "5335b66129ad1dd1",
+                "6b8b686b5be92a85"
+            ]
+        ]
+    },
+    {
+        "id": "5335b66129ad1dd1",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "6b8b686b5be92a85",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Calculo de features",
+        "func": "let data = msg.payload.samples;\n\nfunction avg(arr, key) {\n    return arr.reduce((sum, item) => sum + item.sensors[key], 0) / arr.length;\n}\n\nfunction std(arr, key, mean) {\n    let variance = arr.reduce((sum, item) => {\n        let diff = item.sensors[key] - mean;\n        return sum + diff * diff;\n    }, 0) / arr.length;\n    return Math.sqrt(variance);\n}\n\nfunction minVal(arr, key) {\n    return Math.min(...arr.map(item => item.sensors[key]));\n}\n\nfunction maxVal(arr, key) {\n    return Math.max(...arr.map(item => item.sensors[key]));\n}\n\nfunction trend(arr, key) {\n    return arr[arr.length - 1].sensors[key] - arr[0].sensors[key];\n}\n\nlet pressure_avg = avg(data, \"pressure\");\nlet pressure_std = std(data, \"pressure\", pressure_avg);\nlet pressure_min = minVal(data, \"pressure\");\nlet pressure_max = maxVal(data, \"pressure\");\nlet pressure_trend = trend(data, \"pressure\");\n\nlet temperature_avg = avg(data, \"temperature\");\nlet temperature_std = std(data, \"temperature\", temperature_avg);\nlet temperature_min = minVal(data, \"temperature\");\nlet temperature_max = maxVal(data, \"temperature\");\nlet temperature_trend = trend(data, \"temperature\");\n\nlet vibration_avg = avg(data, \"vibration\");\nlet vibration_std = std(data, \"vibration\", vibration_avg);\nlet vibration_min = minVal(data, \"vibration\");\nlet vibration_max = maxVal(data, \"vibration\");\nlet vibration_trend = trend(data, \"vibration\");\n\nlet flow_avg = avg(data, \"floww\");\nlet flow_std = std(data, \"floww\", flow_avg);\nlet flow_min = minVal(data, \"floww\");\nlet flow_max = maxVal(data, \"floww\");\nlet flow_trend = trend(data, \"floww\");\n\nmsg.payload = {\n    well_id: msg.payload.well_id,\n    timestamp: data[data.length - 1].timestamp,\n    window_size: data.length,\n    features: {\n        pressure_avg: pressure_avg,\n        pressure_std: pressure_std,\n        pressure_min: pressure_min,\n        pressure_max: pressure_max,\n        pressure_trend: pressure_trend,\n\n        temperature_avg: temperature_avg,\n        temperature_std: temperature_std,\n        temperature_min: temperature_min,\n        temperature_max: temperature_max,\n        temperature_trend: temperature_trend,\n\n        vibration_avg: vibration_avg,\n        vibration_std: vibration_std,\n        vibration_min: vibration_min,\n        vibration_max: vibration_max,\n        vibration_trend: vibration_trend,\n\n        flow_avg: flow_avg,\n        flow_std: flow_std,\n        flow_min: flow_min,\n        flow_max: flow_max,\n        flow_trend: flow_trend\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "5fbba8b82b1c76fa",
+                "afcf6724e2407bb2"
+            ]
+        ]
+    },
+    {
+        "id": "5fbba8b82b1c76fa",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "94aabe325220fea2",
+        "type": "switch",
+        "z": "d324126c941e7540",
+        "name": "Ruteo por estado",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "normal",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "warning",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "anomaly",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1610,
+        "y": 960,
+        "wires": [
+            [
+                "51bbbd7c5b4faa96",
+                "a5183b589a7fcf4d"
+            ],
+            [
+                "ba346d75a1a9bb98",
+                "a5183b589a7fcf4d"
+            ],
+            [
+                "8f39018d503c49f8",
+                "a5183b589a7fcf4d"
+            ]
+        ]
+    },
+    {
+        "id": "51bbbd7c5b4faa96",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "ba346d75a1a9bb98",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8f39018d503c49f8",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "3a32481c4ae48664",
+        "type": "ui_gauge",
+        "z": "d324126c941e7540",
+        "name": "Well Pressure",
+        "group": "0002949b5fe2957f",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Well Pressure",
+        "label": "psi",
+        "format": "{{value}}",
+        "min": "200",
+        "max": "3000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 600,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "10b07dae4accfdf2",
+        "type": "change",
+        "z": "d324126c941e7540",
+        "name": "Pressure",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.sensors.pressure",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 500,
+        "wires": [
+            [
+                "3a32481c4ae48664"
+            ]
+        ]
+    },
+    {
+        "id": "8420a0299d6d341f",
+        "type": "change",
+        "z": "d324126c941e7540",
+        "name": "Temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.sensors.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 560,
+        "wires": [
+            [
+                "656b2855c23f1b74"
+            ]
+        ]
+    },
+    {
+        "id": "2cc347bb259eb228",
+        "type": "change",
+        "z": "d324126c941e7540",
+        "name": "Vibration",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.sensors.vibration",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 620,
+        "wires": [
+            [
+                "5c7d6872a8ee04c4"
+            ]
+        ]
+    },
+    {
+        "id": "fa51ed470cecea49",
+        "type": "change",
+        "z": "d324126c941e7540",
+        "name": "Flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.sensors.floww",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 680,
+        "wires": [
+            [
+                "ed9bfe31e153a5bb"
+            ]
+        ]
+    },
+    {
+        "id": "656b2855c23f1b74",
+        "type": "ui_gauge",
+        "z": "d324126c941e7540",
+        "name": "Fluid Temp (°C)",
+        "group": "0002949b5fe2957f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Fluid Temp (°C)",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "50",
+        "max": "130",
+        "colors": [
+            "#e6e600",
+            "#00b500",
+            "#ca3838"
+        ],
+        "seg1": "70",
+        "seg2": "95",
+        "diff": false,
+        "className": "",
+        "x": 600,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "5c7d6872a8ee04c4",
+        "type": "ui_gauge",
+        "z": "d324126c941e7540",
+        "name": "Pump Vibration",
+        "group": "0002949b5fe2957f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Pump Vibration",
+        "label": "mm/s",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "30",
+        "diff": false,
+        "className": "",
+        "x": 600,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ed9bfe31e153a5bb",
+        "type": "ui_gauge",
+        "z": "d324126c941e7540",
+        "name": "Production Flow",
+        "group": "0002949b5fe2957f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Production Flow",
+        "label": "bbl/day",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 600,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a5183b589a7fcf4d",
+        "type": "ui_text",
+        "z": "d324126c941e7540",
+        "group": "7d9ef8004c9b6ee5",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Well Status",
+        "label": "Well Status",
+        "format": "{{msg.payload.status}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1950,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "25eaf679e1f4a337",
+        "type": "mqtt in",
+        "z": "d324126c941e7540",
+        "name": "",
+        "topic": "cursoiot/well1/sensor",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "d9e5246df3fbe691",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "80fe0d24a3489671"
+            ]
+        ]
+    },
+    {
+        "id": "9fe8dd085ce51c68",
+        "type": "neuralnet",
+        "z": "d324126c941e7540",
+        "name": "neuralnet",
+        "learningRate": 0.01,
+        "errorThresh": 0.025,
+        "iterations": 500,
+        "log": false,
+        "logPeriod": 10,
+        "nntype": 0,
+        "x": 920,
+        "y": 840,
+        "wires": [
+            [
+                "d4e7f8a1b2c30001"
+            ]
+        ]
+    },
+    {
+        "id": "afcf6724e2407bb2",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Prepare NN Input",
+        "func": "if (!flow.get(\"nnReady\")) {\n    node.warn(\"MLP not ready -- training in progress\");\n    return null;\n}\n\nlet f = msg.payload.features;\n\n// Normalize raw sensor features to [0,1] matching the training data space.\nconst P  = { min: 200, range: 2800 };\nconst T  = { min: 50,  range: 80   };\nconst V  = { min: 0,   range: 40   };\nconst FL = { min: 0,   range: 100  };\n\nfunction nAvg(v, r)   { return Math.max(0, Math.min(1, (v - r.min) / r.range)); }\nfunction nStd(v, r)   { return Math.max(0, Math.min(1, v * 2 / r.range)); }\nfunction nTrend(v, r) { return Math.max(0, Math.min(1, (v / r.range + 1) / 2)); }\n\nflow.set(\"last_features_payload\", msg.payload);\n\nmsg.runData = {\n    p_avg:   nAvg(f.pressure_avg, P),     p_std: nStd(f.pressure_std, P),\n    p_min:   nAvg(f.pressure_min, P),     p_max: nAvg(f.pressure_max, P),\n    p_trend: nTrend(f.pressure_trend, P),\n\n    t_avg:   nAvg(f.temperature_avg, T),   t_std: nStd(f.temperature_std, T),\n    t_min:   nAvg(f.temperature_min, T),   t_max: nAvg(f.temperature_max, T),\n    t_trend: nTrend(f.temperature_trend, T),\n\n    v_avg:   nAvg(f.vibration_avg, V),     v_std: nStd(f.vibration_std, V),\n    v_min:   nAvg(f.vibration_min, V),     v_max: nAvg(f.vibration_max, V),\n    v_trend: nTrend(f.vibration_trend, V),\n\n    f_avg:   nAvg(f.flow_avg, FL),         f_std: nStd(f.flow_std, FL),\n    f_min:   nAvg(f.flow_min, FL),         f_max: nAvg(f.flow_max, FL),\n    f_trend: nTrend(f.flow_trend, FL)\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 780,
+        "wires": [
+            [
+                "9fe8dd085ce51c68",
+                "3ce16839e064bccb"
+            ]
+        ]
+    },
+    {
+        "id": "4f4a8ffc847cc75b",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Interpret NN Output",
+        "func": "let out = msg.decision;\n\nif (!out || typeof out !== 'object' || (!('normal' in out) && !('warning' in out) && !('anomaly' in out))) {\n    return null;\n}\n\nlet bestLabel = null;\nlet bestScore = -Infinity;\n\nfor (let label in out) {\n    if (out[label] > bestScore) {\n        bestScore = out[label];\n        bestLabel = label;\n    }\n}\n\nlet original = flow.get(\"last_features_payload\") || {};\n\nmsg.payload = {\n    well_id: original.well_id || \"WELL-01\",\n    timestamp: Date.now(),\n    status: bestLabel,\n    confidence: bestScore,\n    nn_output: out,\n    features: original.features\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 900,
+        "wires": [
+            [
+                "f92d4359b3a57d17",
+                "33cfb3bab5401e2d",
+                "c8f2a1e4b7d09345",
+                "bb11cc22dd330002"
+            ]
+        ]
+    },
+    {
+        "id": "153a03b157e4d9a5",
+        "type": "inject",
+        "z": "d324126c941e7540",
+        "name": "Auto-train on deploy",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 2,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 920,
+        "wires": [
+            [
+                "62b7ab8c9281b494"
+            ]
+        ]
+    },
+    {
+        "id": "62b7ab8c9281b494",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Build NN Training Dataset",
+        "func": "flow.set(\"nnReady\", false);\nflow.set(\"liveCM\", null);\n\nconst candidates = [\n    \"C:/Users/Catan/.node-red/skab_traindata.json\",\n    \"skab_traindata.json\"\n];\n\nlet raw = null, loadedFrom = null;\nfor (let p of candidates) {\n    try {\n        if (fs.existsSync(p)) {\n            raw = JSON.parse(fs.readFileSync(p, \"utf8\"));\n            loadedFrom = p;\n            break;\n        }\n    } catch(e) { node.warn(\"Failed: \" + p + \" - \" + e.message); }\n}\nif (!raw || raw.length === 0) { node.error(\"skab_traindata.json not found.\"); return null; }\n\nfunction seqStats(steps, key) {\n    let vals = steps.map(s => s[key]);\n    let n = vals.length;\n    let avg = vals.reduce((s, v) => s + v, 0) / n;\n    let std = Math.sqrt(vals.reduce((s, v) => s + (v - avg) * (v - avg), 0) / n);\n    return { avg, std, min: Math.min.apply(null, vals), max: Math.max.apply(null, vals), trend: vals[n - 1] - vals[0] };\n}\nfunction nStd(v)   { return Math.max(0, Math.min(1, v * 2)); }\nfunction nTrend(v) { return Math.max(0, Math.min(1, (v + 1) / 2)); }\nfunction clamp(v)  { return Math.max(0, Math.min(1, v)); }\n\nlet dataset = raw.map(sample => {\n    let s = sample.input;\n    let p = seqStats(s, \"pressure\"), t = seqStats(s, \"temperature\"),\n        v = seqStats(s, \"vibration\"), fl = seqStats(s, \"flow\");\n    return {\n        input: {\n            p_avg: clamp(p.avg),   p_std: nStd(p.std),   p_min: clamp(p.min),   p_max: clamp(p.max),   p_trend: nTrend(p.trend),\n            t_avg: clamp(t.avg),   t_std: nStd(t.std),   t_min: clamp(t.min),   t_max: clamp(t.max),   t_trend: nTrend(t.trend),\n            v_avg: clamp(v.avg),   v_std: nStd(v.std),   v_min: clamp(v.min),   v_max: clamp(v.max),   v_trend: nTrend(v.trend),\n            f_avg: clamp(fl.avg),  f_std: nStd(fl.std),  f_min: clamp(fl.min),  f_max: clamp(fl.max),  f_trend: nTrend(fl.trend)\n        },\n        output: sample.output\n    };\n});\n\nfor (let i = dataset.length - 1; i > 0; i--) {\n    let j = Math.floor(Math.random() * (i + 1));\n    [dataset[i], dataset[j]] = [dataset[j], dataset[i]];\n}\n\nlet splitIdx = Math.floor(dataset.length * 0.8);\nlet trainSet = dataset.slice(0, splitIdx);\nlet evalSet  = dataset.slice(splitIdx);\nflow.set(\"evalSet\", evalSet);\n\nlet counts = { normal: 0, anomaly: 0 };\ntrainSet.forEach(s => {\n    if (s.output.normal === 1) counts.normal++;\n    else counts.anomaly++;\n});\nnode.log(\"Train: \" + trainSet.length + \" [N=\" + counts.normal + \" A=\" + counts.anomaly + \"] | Eval holdout: \" + evalSet.length);\nmsg.trainData = trainSet;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "fs",
+                "module": "fs"
+            },
+            {
+                "var": "path",
+                "module": "path"
+            }
+        ],
+        "x": 670,
+        "y": 920,
+        "wires": [
+            [
+                "9fe8dd085ce51c68",
+                "f464ea5a6d3dba7c"
+            ]
+        ]
+    },
+    {
+        "id": "7ba37a506186a12e",
+        "type": "inject",
+        "z": "d324126c941e7540",
+        "name": "Simulate MQTT Message",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "9a675c7106f23416"
+            ]
+        ]
+    },
+    {
+        "id": "9a675c7106f23416",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Simulated MQTT Payload",
+        "func": "let t = context.get(\"t\") || 0;\nt += 1;\ncontext.set(\"t\", t);\n\nlet isAnomaly = false;\n\n// anomaly window every 90 seconds, lasting 20 seconds\nif ((t % 70) >= 20 && (t % 70) < 40) {\n    isAnomaly = true;\n}\n\nlet pressure;\nlet temperature;\nlet vibration;\nlet floww;\n\nif (!isAnomaly) {\n    pressure = 1000 + Math.random() * 50;\n    temperature = 80 + Math.random() * 10;\n    vibration = Math.floor(2 + Math.random() * 2);\n    floww = 50 + Math.random() * 10;\n} else {\n    pressure = 690 + Math.random() * 40;\n    temperature = 100 + Math.random() * 15;\n    vibration = Math.floor(8 + Math.random() * 4);\n    floww = 15 + Math.random() * 15;\n}\n\nmsg.topic = \"cursoiot/well1/sensor\";\n\n// Token de seguridad (debe coincidir con env WELL_TOKEN)\nlet token = env.get(\"WELL_TOKEN\") || \"well01-secret-2024\";\n\nmsg.payload = JSON.stringify({\n    well_id: \"WELL-01\",\n    token: token,\n    pressure: pressure,\n    temperature: temperature,\n    vibration: vibration,\n    floww: floww\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f92d4359b3a57d17",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "3ce16839e064bccb",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "fc33aa960c78921d",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "f464ea5a6d3dba7c",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "trainData",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "33cfb3bab5401e2d",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "function 1",
+        "func": "let p = msg.payload;\n\nif (!p || !p.status) {\n    return null;\n}\n\nmsg.payload = {\n    status: p.status,\n    confidence: p.confidence || 0,\n    raw: p.nn_output || {}\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 960,
+        "wires": [
+            [
+                "94aabe325220fea2"
+            ]
+        ]
+    },
+    {
+        "id": "3d88039f9aa11070",
+        "type": "gemini-generate-content",
+        "z": "d324126c941e7540",
+        "name": "",
+        "apiKey": "b38518ecd6554ebd",
+        "modelSelection": "gemini-3.1-flash-lite",
+        "customModel": "gemini-3-flash-preview",
+        "customModelType": "str",
+        "mode": "single",
+        "prompt": "DATO ACTUAL DEL POZO:  pozo_id: {{msg.payload.pozo_id}}  CLASIFICACIÓN DE LA RED NEURONAL (FUENTE DE VERDAD): - estado: {{msg.payload.clasificacion_IA.estado}} - confianza: {{msg.payload.clasificacion_IA.confianza}} - probabilidad normal: {{msg.payload.clasificacion_IA.probabilidades.normal}} - probabilidad advertencia: {{msg.payload.clasificacion_IA.probabilidades.advertencia}} - probabilidad anomalia: {{msg.payload.clasificacion_IA.probabilidades.anomalia}}  SENSORES (ventana de 30 s):  presion_psi: - promedio: {{msg.payload.sensores.presion_psi.promedio}} - desviacion: {{msg.payload.sensores.presion_psi.desviacion}} - minimo: {{msg.payload.sensores.presion_psi.minimo}} - maximo: {{msg.payload.sensores.presion_psi.maximo}} - tendencia: {{msg.payload.sensores.presion_psi.tendencia}}  temperatura_C: - promedio: {{msg.payload.sensores.temperatura_C.promedio}} - desviacion: {{msg.payload.sensores.temperatura_C.desviacion}} - minimo: {{msg.payload.sensores.temperatura_C.minimo}} - maximo: {{msg.payload.sensores.temperatura_C.maximo}} - tendencia: {{msg.payload.sensores.temperatura_C.tendencia}}  vibracion_mmps: - promedio: {{msg.payload.sensores.vibracion_mmps.promedio}} - desviacion: {{msg.payload.sensores.vibracion_mmps.desviacion}} - minimo: {{msg.payload.sensores.vibracion_mmps.minimo}} - maximo: {{msg.payload.sensores.vibracion_mmps.maximo}} - tendencia: {{msg.payload.sensores.vibracion_mmps.tendencia}}  flujo_bbldia: - promedio: {{msg.payload.sensores.flujo_bbldia.promedio}} - desviacion: {{msg.payload.sensores.flujo_bbldia.desviacion}} - minimo: {{msg.payload.sensores.flujo_bbldia.minimo}} - maximo: {{msg.payload.sensores.flujo_bbldia.maximo}} - tendencia: {{msg.payload.sensores.flujo_bbldia.tendencia}}  Genera el reporte siguiendo EXACTAMENTE el FORMATO DE SALIDA definido en las instrucciones del sistema. Usa \"{{msg.payload.clasificacion_IA.estado}}\" como ESTADO OPERATIVO sin modificarlo y construye todo el análisis a partir de ese valor.",
+        "promptType": "str",
+        "multimodalInputsData": "[]",
+        "grounding": false,
+        "temperature": "",
+        "temperatureType": "num",
+        "topP": "",
+        "topPType": "num",
+        "topK": "",
+        "topKType": "num",
+        "maxOutputTokens": "",
+        "maxOutputTokensType": "num",
+        "safetyHarassment": "",
+        "safetyHateSpeech": "",
+        "safetySexuallyExplicit": "",
+        "safetyDangerousContent": "",
+        "thinkingBudget": "",
+        "thinkingBudgetType": "num",
+        "thinkingLevel": "",
+        "thinkingLevelType": "str",
+        "includeThoughts": false,
+        "systemInstruction": "ROL: Eres ARIA (Asistente de Reconocimiento Inteligente de Anomalías), un experto virtual en operaciones de pozos petroleros con amplia experiencia en monitoreo en tiempo real, mantenimiento predictivo e interpretación de telemetría industrial. Generas reportes operativos en español para el equipo de campo y supervisores de turno.  CONTEXTO: Los datos provienen de una ventana deslizante de 30 muestras (30 segundos) del sistema de monitoreo del pozo WELL-01. Cada mensaje incluye:  - pozo_id: identificador del pozo. - clasificacion_IA: resultado de la red neuronal entrenada.     * estado: clasificación producida por la red neuronal. Valores posibles:       \"normal\", \"warning\" o \"anomaly\".     * confianza: nivel de certeza de la red neuronal (0-100%).     * probabilidades: distribución de probabilidades por clase       (normal, advertencia, anomalia). - sensores: estadísticas sobre la ventana de 30 segundos para cada parámetro   (presion_psi, temperatura_C, vibracion_mmps, flujo_bbldia):     * promedio   → media del parámetro en la ventana.     * desviacion → variabilidad (alta desviación indica inestabilidad).     * minimo / maximo → valores extremos registrados en la ventana.     * tendencia  → diferencia entre la última y la primera muestra       (positivo = subiendo, negativo = bajando).  REGLA MAESTRA (NO NEGOCIABLE): El campo clasificacion_IA.estado es el VEREDICTO OFICIAL del pozo y la ÚNICA fuente de verdad para clasificar la situación. Debes: 1. Copiarlo TAL CUAL en la primera línea del reporte (ESTADO OPERATIVO). 2. Construir el DIAGNÓSTICO, los PARÁMETROS EN ALERTA, las ACCIONES RECOMENDADAS    y la PRIORIDAD DE ATENCIÓN de manera COHERENTE con ese estado. 3. NO contradecir, suavizar, escalar ni reinterpretar ese estado, incluso si los    valores de los sensores parecen indicar otra cosa. Los sensores SOLO sirven para    explicar y justificar el estado dado, nunca para cambiarlo.  CRITERIOS DE COHERENCIA SEGÚN clasificacion_IA.estado:  - Si estado = \"normal\":     * Tono: operación estable, sin intervención urgente.     * PRIORIDAD DE ATENCIÓN debe ser RUTINARIA.     * ACCIONES RECOMENDADAS: tareas de monitoreo, verificación rutinaria, registro       de tendencias. No proponer paradas ni intervenciones correctivas.     * Si algún sensor muestra una desviación leve, describirlo como variación dentro       de rango aceptable.  - Si estado = \"warning\":     * Tono: condición degradada, requiere atención preventiva.     * PRIORIDAD DE ATENCIÓN debe ser ALTA.     * ACCIONES RECOMENDADAS: inspecciones, ajustes operativos, vigilancia reforzada,       preparación de recursos. No proponer parada inmediata salvo que múltiples       parámetros estén críticos.  - Si estado = \"anomaly\":     * Tono: condición crítica, riesgo operativo confirmado por la IA.     * PRIORIDAD DE ATENCIÓN debe ser INMEDIATA.     * ACCIONES RECOMENDADAS: intervención urgente, posible parada controlada,       notificación a supervisión, aislamiento o protección de equipos. Aunque los       valores parezcan recuperarse al final de la ventana, mantener la severidad       indicada por la IA.  RANGOS DE REFERENCIA (solo para identificar PARÁMETROS EN ALERTA, no para reclasificar): - presion_psi:    normal 2400-3000 | bajo <2400 | crítico <2000 - temperatura_C:  normal 70-95     | alta 95-110 | crítica >110 - vibracion_mmps: normal <4        | elevada 4-8 | crítica >8 - flujo_bbldia:   normal >40       | bajo 20-40  | crítico <20  INTERPRETACIÓN DE LA VENTANA: Los mínimos y máximos reflejan el rango COMPLETO de los 30 segundos y pueden incluir transiciones pasadas, no el estado instantáneo. Para evaluar la situación actual, priorizar el promedio y la tendencia sobre los extremos.  IDIOMA: Generar el reporte siempre en español, sin texto adicional fuera del formato indicado, sin saludos, sin despedidas, sin explicaciones del proceso interno.  FORMATO DE SALIDA (respetar literalmente, incluyendo encabezados en mayúsculas):  ESTADO OPERATIVO: <valor exacto de clasificacion_IA.estado>  DIAGNÓSTICO: <2-3 oraciones técnicas que justifiquen el ESTADO OPERATIVO citando valores específicos de sensores (promedio, tendencia, desviación). El diagnóstico debe ser coherente con el estado: tranquilizador si \"normal\", preventivo si \"warning\", urgente si \"anomaly\">.  PARÁMETROS EN ALERTA: - <parámetro>: valor actual <X> vs rango normal <Y> (<motivo: bajo/alto/inestable/tendencia>) - ... (Si el estado es \"normal\" y ningún parámetro está fuera de rango, escribir exactamente: Ninguno)  ACCIONES RECOMENDADAS: 1. <acción concreta, alineada con el estado> 2. <acción concreta, alineada con el estado> (entre 2 y 4 acciones, escalando con la severidad del estado)  PRIORIDAD DE ATENCIÓN: <RUTINARIA si normal | ALTA si warning | INMEDIATA si anomaly>",
+        "systemInstructionType": "str",
+        "outputProperty": "payload",
+        "passthroughProperties": false,
+        "responseFormat": "text",
+        "schemaPropertiesData": "[]",
+        "enumValues": "",
+        "x": 1230,
+        "y": 180,
+        "wires": [
+            [
+                "ba68e7682d8527f7",
+                "f54d294bd3907437"
+            ],
+            [
+                "7e0f88bcfab73de8"
+            ]
+        ]
+    },
+    {
+        "id": "ba68e7682d8527f7",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "7e0f88bcfab73de8",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "c5b58310e864aca6",
+        "type": "delay",
+        "z": "d324126c941e7540",
+        "name": "Delay 30s",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 980,
+        "y": 240,
+        "wires": [
+            [
+                "3dfd3b25d77a9f3a",
+                "3d88039f9aa11070"
+            ]
+        ]
+    },
+    {
+        "id": "24dd9661e73c5fe5",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Formatear entrada Gemini",
+        "func": "let p = msg.payload;\nlet f = p.features || {};\n\nmsg.payload = {\n    pozo_id: p.well_id || \"WELL-01\",\n    timestamp: new Date(p.timestamp).toISOString(),\n    clasificacion_IA: {\n        estado: p.status,\n        confianza: Math.round((p.confidence || 0) * 100) + \"%\",\n        probabilidades: {\n            normal: Math.round(((p.nn_output && p.nn_output.normal) || 0) * 100) + \"%\",\n            advertencia: Math.round(((p.nn_output && p.nn_output.warning) || 0) * 100) + \"%\",\n            anomalia: Math.round(((p.nn_output && p.nn_output.anomaly) || 0) * 100) + \"%\"\n        }\n    },\n    sensores: {\n        presion_psi: {\n            promedio: Math.round(f.pressure_avg || 0),\n            desviacion: Math.round((f.pressure_std || 0) * 10) / 10,\n            minimo: Math.round(f.pressure_min || 0),\n            maximo: Math.round(f.pressure_max || 0),\n            tendencia: Math.round(f.pressure_trend || 0)\n        },\n        temperatura_C: {\n            promedio: Math.round((f.temperature_avg || 0) * 10) / 10,\n            desviacion: Math.round((f.temperature_std || 0) * 10) / 10,\n            minimo: Math.round((f.temperature_min || 0) * 10) / 10,\n            maximo: Math.round((f.temperature_max || 0) * 10) / 10,\n            tendencia: Math.round((f.temperature_trend || 0) * 10) / 10\n        },\n        vibracion_mmps: {\n            promedio: Math.round((f.vibration_avg || 0) * 100) / 100,\n            desviacion: Math.round((f.vibration_std || 0) * 100) / 100,\n            minimo: Math.round((f.vibration_min || 0) * 100) / 100,\n            maximo: Math.round((f.vibration_max || 0) * 100) / 100,\n            tendencia: Math.round((f.vibration_trend || 0) * 100) / 100\n        },\n        flujo_bbldia: {\n            promedio: Math.round((f.flow_avg || 0) * 10) / 10,\n            desviacion: Math.round((f.flow_std || 0) * 10) / 10,\n            minimo: Math.round((f.flow_min || 0) * 10) / 10,\n            maximo: Math.round((f.flow_max || 0) * 10) / 10,\n            tendencia: Math.round((f.flow_trend || 0) * 10) / 10\n        }\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 500,
+        "wires": [
+            [
+                "c5b58310e864aca6"
+            ]
+        ]
+    },
+    {
+        "id": "f54d294bd3907437",
+        "type": "ui_template",
+        "z": "d324126c941e7540",
+        "group": "a11a454d08b04c22",
+        "name": "Recomendaciones ARIA",
+        "order": 0,
+        "width": 12,
+        "height": 8,
+        "format": "<div style=\"padding:12px; font-size:13px; line-height:1.7; white-space:pre-wrap; font-family:'Courier New',monospace; background:#f4f7fb; border-radius:6px; border-left:5px solid #1565C0; color:#212121;\">{{msg.payload}}</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1530,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3dfd3b25d77a9f3a",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c8f2a1e4b7d09345",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Status Change Gate",
+        "func": "// Status-change gate: sends to Gemini only after 3 consecutive\n// confirmations of a status that differs from the last sent status.\n\nlet incoming = msg.payload.status;\nif (!incoming) return null;\n\nlet buf      = flow.get(\"statusBuf\")      || { status: null, count: 0 };\nlet lastSent = flow.get(\"lastSentStatus\") || null;\n\nif (incoming === buf.status) {\n    buf.count++;\n} else {\n    buf = { status: incoming, count: 1 };\n}\nflow.set(\"statusBuf\", buf);\n\n// Fire only when confirmed 3x in a row AND it is a new status vs last sent\nif (buf.count >= 3 && incoming !== lastSent) {\n    flow.set(\"lastSentStatus\", incoming);\n    node.log(\"Status gate fired: \" + lastSent + \" -> \" + incoming + \" (confirmed \" + buf.count + \"x)\");\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 640,
+        "wires": [
+            [
+                "24dd9661e73c5fe5"
+            ]
+        ]
+    },
+    {
+        "id": "d4e7f8a1b2c30001",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "NN Ready Gate",
+        "func": "if (msg.trainData) {\n    flow.set(\"nnReady\", true);\n    flow.set(\"evalPredictions\", []);\n    node.log(\"MLP training complete -- inference enabled, starting holdout eval\");\n    node.send([null, { _evalTrigger: true }, null]);\n    return null;\n}\nif (msg._isEval) {\n    node.send([null, null, msg]);\n    return null;\n}\nnode.send([msg, null, null]);\nreturn null;",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 840,
+        "wires": [
+            [
+                "4f4a8ffc847cc75b",
+                "fc33aa960c78921d"
+            ],
+            [
+                "aa11bb22cc330001"
+            ],
+            [
+                "dd44ee55ff660001"
+            ]
+        ]
+    },
+    {
+        "id": "aa11bb22cc330001",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Run Eval",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 760,
+        "wires": [
+            [
+                "9fe8dd085ce51c68"
+            ]
+        ],
+        "func": "let evalSet = flow.get(\"evalSet\") || [];\nif (evalSet.length === 0) { node.warn(\"No eval set in flow context\"); return null; }\nflow.set(\"evalPredictions\", []);\nnode.log(\"Running holdout eval on \" + evalSet.length + \" samples\");\nevalSet.forEach(function(sample) {\n    node.send({\n        runData: sample.input,\n        _isEval: true,\n        _evalLabel: Object.keys(sample.output).find(function(k) { return sample.output[k] === 1; }),\n        _evalTotal: evalSet.length\n    });\n});\nreturn null;"
+    },
+    {
+        "id": "dd44ee55ff660001",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Accumulate Accuracy",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 840,
+        "wires": [
+            [
+                "11223344556600aa",
+                "22334455667700bb"
+            ]
+        ],
+        "func": "let dec = msg.decision;\nif (!dec) return null;\n\nlet pred = null, bestScore = -Infinity;\nObject.keys(dec).forEach(function(k) {\n    if (dec[k] !== null && dec[k] > bestScore) { bestScore = dec[k]; pred = k; }\n});\nif (!pred) return null;\n\nlet preds = flow.get(\"evalPredictions\") || [];\npreds.push({ pred: pred, label: msg._evalLabel });\nflow.set(\"evalPredictions\", preds);\n\nlet total = msg._evalTotal;\nif (preds.length < total) {\n    node.status({ fill: \"yellow\", shape: \"dot\", text: \"Evaluating \" + preds.length + \"/\" + total });\n    return null;\n}\n\nlet correct = preds.filter(function(p) { return p.pred === p.label; }).length;\nlet accuracy = correct / total;\n\nlet classes = [\"normal\", \"anomaly\"];\nlet recalls = [];\nclasses.forEach(function(cls) {\n    let support = preds.filter(function(p) { return p.label === cls; }).length;\n    if (support === 0) return;\n    let tp = preds.filter(function(p) { return p.label === cls && p.pred === cls; }).length;\n    recalls.push(tp / support);\n});\nlet balAcc = recalls.length > 0 ? recalls.reduce(function(s, r) { return s + r; }, 0) / recalls.length : 0;\n\nlet result = {\n    accuracy:          (accuracy * 100).toFixed(1) + \"%\",\n    balanced_accuracy: (balAcc   * 100).toFixed(1) + \"%\",\n    correct: correct,\n    samples: total\n};\nnode.log(\"Holdout eval: \" + JSON.stringify(result));\nnode.status({ fill: \"blue\", shape: \"dot\", text: \"Acc \" + result.accuracy + \" | Bal \" + result.balanced_accuracy });\nmsg.payload = result;\nreturn msg;"
+    },
+    {
+        "id": "11223344556600aa",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "Model Accuracy",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "22334455667700bb",
+        "type": "ui_text",
+        "z": "d324126c941e7540",
+        "group": "7d9ef8004c9b6ee5",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "Model Accuracy Display",
+        "label": "Model Accuracy",
+        "format": "Acc: {{msg.payload.accuracy}} | Balanced: {{msg.payload.balanced_accuracy}} ({{msg.payload.correct}}/{{msg.payload.samples}})",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 14,
+        "color": "#000000",
+        "x": 1600,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "bb11cc22dd330002",
+        "type": "function",
+        "z": "d324126c941e7540",
+        "name": "Live Accuracy Tracker",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1500,
+        "y": 600,
+        "wires": [
+            [
+                "cc22dd33ee440002",
+                "dd33ee44ff550002"
+            ]
+        ],
+        "func": "if (!flow.get(\"nnReady\")) return null;\nif (!msg._trueLabel) return null;\n\nlet trueLabel = msg._trueLabel;\nlet predicted = msg.payload && msg.payload.status;\nif (!predicted) return null;\n\n// Update running confusion matrix stored in flow context.\n// Structure: { normal: {normal,warning,anomaly}, warning: {...}, anomaly: {...} }\nlet cm = flow.get(\"liveCM\") || {\n    normal:  { normal: 0, anomaly: 0 },\n    anomaly: { normal: 0, anomaly: 0 }\n};\nif (!cm[trueLabel]) cm[trueLabel] = { normal: 0, anomaly: 0 };\ncm[trueLabel][predicted] = (cm[trueLabel][predicted] || 0) + 1;\nflow.set(\"liveCM\", cm);\n\n// Accuracy: correct / total predictions\nlet total   = 0, correct = 0;\nObject.keys(cm).forEach(function(tl) {\n    Object.keys(cm[tl]).forEach(function(pl) {\n        total   += cm[tl][pl];\n        if (tl === pl) correct += cm[tl][pl];\n    });\n});\nlet accuracy = total > 0 ? correct / total : 0;\n\n// Balanced accuracy: average per-class recall (only for classes with support)\nlet classes = [\"normal\", \"anomaly\"];\nlet recalls = [];\nclasses.forEach(function(cls) {\n    let row = cm[cls];\n    if (!row) return;\n    let support = Object.values(row).reduce(function(s, v) { return s + v; }, 0);\n    if (support === 0) return;\n    recalls.push((row[cls] || 0) / support);\n});\nlet balAcc = recalls.length > 0\n    ? recalls.reduce(function(s, r) { return s + r; }, 0) / recalls.length\n    : 0;\n\nlet result = {\n    accuracy:          (accuracy * 100).toFixed(1) + \"%\",\n    balanced_accuracy: (balAcc   * 100).toFixed(1) + \"%\",\n    total:   total,\n    correct: correct,\n    true_label: trueLabel,\n    predicted:  predicted,\n    confusion_matrix: cm\n};\n\nnode.status({ fill: \"green\", shape: \"dot\",\n    text: \"Acc \" + result.accuracy + \" | Bal \" + result.balanced_accuracy + \" (\" + total + \" samples)\" });\n\nmsg.payload = result;\nreturn msg;"
+    },
+    {
+        "id": "cc22dd33ee440002",
+        "type": "debug",
+        "z": "d324126c941e7540",
+        "name": "Live Accuracy",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1720,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "dd33ee44ff550002",
+        "type": "ui_text",
+        "z": "d324126c941e7540",
+        "group": "7d9ef8004c9b6ee5",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "name": "Live Accuracy Display",
+        "label": "Live Accuracy",
+        "format": "Acc: {{msg.payload.accuracy}} | Bal: {{msg.payload.balanced_accuracy}} ({{msg.payload.correct}}/{{msg.payload.total}})",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 14,
+        "color": "#000000",
+        "x": 1720,
+        "y": 640,
+        "wires": []
+    }
+]

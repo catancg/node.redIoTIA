@@ -1,0 +1,24 @@
+# Node-RED credentials and secrets
+flows_cred.json
+.flows_cred.json.backup
+.config.runtime.json
+.config.runtime.json.backup
+
+# Node-RED runtime state
+.config.nodes.json
+.config.nodes.json.backup
+.config.users.json
+.config.users.json.backup
+.flows.json.backup
+
+# Backup files
+flows_2.json
+
+# Dependencies
+node_modules/
+lib/
+
+# Claude Code
+.claude/
+.agents/
+skills-lock.json
