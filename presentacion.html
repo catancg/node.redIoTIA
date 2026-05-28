@@ -461,37 +461,56 @@
     <h2 class="section-title">Diagrama de la solución</h2>
 
     <div class="arch-diagram">
-      <!-- Row 1: Data source -->
+
+      <!-- Row 1: Physical sensors -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%">
+        <div style="font-size:11px;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);margin-right:4px;letter-spacing:2px;text-transform:uppercase">Hardware</div>
+        <div style="display:flex;gap:8px;flex:1;justify-content:center">
+          <div class="arch-box accent-box" style="flex:1;max-width:130px">
+            <span class="icon">🌡️</span>
+            <span class="label">BMP180</span>
+            <span class="sub">Presión + Temp<br>I2C · pines 21/22</span>
+          </div>
+          <div class="arch-box accent-box" style="flex:1;max-width:130px">
+            <span class="icon">📳</span>
+            <span class="label">MPU6050</span>
+            <span class="sub">Acelerómetro (Vibración)<br>I2C · pines 21/22</span>
+          </div>
+          <div class="arch-box accent-box" style="flex:1;max-width:130px">
+            <span class="icon">🌡️</span>
+            <span class="label">DS18B20</span>
+            <span class="sub">Temperatura<br>OneWire · pin 4</span>
+          </div>
+          <div class="arch-box accent-box" style="flex:1;max-width:130px">
+            <span class="icon">🎚️</span>
+            <span class="label">Potenciómetro</span>
+            <span class="sub">Sensor de Caudal<br>ADC · pin 34</span>
+          </div>
+          <div class="arrow">→</div>
+          <div class="arch-box ok-box" style="flex:1;max-width:140px">
+            <span class="icon">🔧</span>
+            <span class="label">ESP32 DevKit C V4</span>
+            <span class="sub">Wokwi · WiFi · MQTT client</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-down">↓ &nbsp;<span style="font-size:11px;color:var(--muted)">WiFi / TCP</span></div>
+
+      <!-- Row 2: Network + Auth -->
       <div class="arch-row">
-        <div class="arch-box accent-box">
-          <span class="icon">🛢️</span>
-          <span class="label">Sensores del Pozo</span>
-          <span class="sub">Presión · Temp · Vibración · Caudal</span>
-        </div>
-        <div class="arrow">→</div>
-        <div class="arch-box">
-          <span class="icon">🐍</span>
-          <span class="label">skab_replay.py</span>
-          <span class="sub">SKAB CSV → payload MQTT</span>
-        </div>
-        <div class="arrow">→</div>
         <div class="arch-box accent2-box">
           <span class="icon">📡</span>
           <span class="label">HiveMQ Broker</span>
-          <span class="sub">broker.hivemq.com:1883</span>
+          <span class="sub">broker.hivemq.com:1883<br>Topic: cursoiot/well1/sensor</span>
         </div>
         <div class="arrow">→</div>
         <div class="arch-box">
           <span class="icon">🔐</span>
           <span class="label">Validar Token</span>
-          <span class="sub">WELL_TOKEN auth</span>
+          <span class="sub">WELL_TOKEN auth<br>Extrae ground-truth label</span>
         </div>
-      </div>
-
-      <div class="arrow-down">↓</div>
-
-      <!-- Row 2: Processing -->
-      <div class="arch-row">
+        <div class="arrow">→</div>
         <div class="arch-box">
           <span class="icon">⚙️</span>
           <span class="label">Escalar Sensores</span>
@@ -501,13 +520,18 @@
         <div class="arch-box accent-box">
           <span class="icon">📦</span>
           <span class="label">Buffer Fijo × 10</span>
-          <span class="sub">Ventana no-solapada</span>
+          <span class="sub">Ventana no-solapada<br>Emite cada 10 muestras</span>
         </div>
-        <div class="arrow">→</div>
+      </div>
+
+      <div class="arrow-down">↓</div>
+
+      <!-- Row 3: AI -->
+      <div class="arch-row">
         <div class="arch-box">
           <span class="icon">📊</span>
           <span class="label">Cálculo de Features</span>
-          <span class="sub">avg · std · min · max · trend</span>
+          <span class="sub">avg · std · min · max · trend<br>× 4 sensores = 20 features</span>
         </div>
         <div class="arrow">→</div>
         <div class="arch-box ok-box">
@@ -515,30 +539,26 @@
           <span class="label">MLP brain.js</span>
           <span class="sub">20 features → normal / anomaly</span>
         </div>
-      </div>
-
-      <div class="arrow-down">↓</div>
-
-      <!-- Row 3: Output -->
-      <div class="arch-row">
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">🚦</span>
+          <span class="label">Status Gate</span>
+          <span class="sub">3 confirmaciones<br>antes de llamar LLM</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box accent-box">
+          <span class="icon">✨</span>
+          <span class="label">ARIA / Gemini</span>
+          <span class="sub">Reporte operativo<br>en español</span>
+        </div>
+        <div class="arrow">→</div>
         <div class="arch-box accent2-box">
           <span class="icon">📈</span>
           <span class="label">Dashboard /ui</span>
           <span class="sub">Gauges · Estado · Accuracy</span>
         </div>
-        <div class="arrow" style="transform:rotate(180deg)">→</div>
-        <div class="arch-box">
-          <span class="icon">🚦</span>
-          <span class="label">Status Gate</span>
-          <span class="sub">3 predicciones consecutivas</span>
-        </div>
-        <div class="arrow" style="transform:rotate(180deg)">→</div>
-        <div class="arch-box accent-box">
-          <span class="icon">✨</span>
-          <span class="label">ARIA / Gemini</span>
-          <span class="sub">Reporte operativo en español</span>
-        </div>
       </div>
+
     </div>
   </div>
 
