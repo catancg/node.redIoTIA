@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IoT Monitoreo de Pozo Petrolero</title>
+<style>
+  :root {
+    --bg:       #0a1628;
+    --surface:  #112240;
+    --card:     #1a2f4e;
+    --accent:   #f0a500;
+    --accent2:  #3ecfcf;
+    --text:     #e8eaf0;
+    --muted:    #8892a4;
+    --danger:   #e05252;
+    --ok:       #3ecf8e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── Slide container ── */
+  .deck {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 80px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px);
+    transition: opacity .4s ease, transform .4s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+  }
+
+  .slide.exit-left {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  /* ── Progress bar ── */
+  #progress-bar {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width .4s ease;
+    z-index: 100;
+  }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+  }
+
+  .nav button {
+    background: var(--surface);
+    border: 1px solid var(--card);
+    color: var(--text);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background .2s, border-color .2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .nav button:hover { background: var(--card); border-color: var(--accent); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+
+  #slide-counter {
+    font-size: 13px;
+    color: var(--muted);
+    min-width: 48px;
+    text-align: center;
+  }
+
+  /* ── Slide 0 – Cover ── */
+  .cover {
+    background: radial-gradient(ellipse at 30% 50%, #1a3a5c 0%, var(--bg) 70%);
+    text-align: center;
+  }
+
+  .cover .eyebrow {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .cover h1 {
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .cover h1 span { color: var(--accent); }
+
+  .cover .subtitle {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .pill-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pill {
+    background: var(--surface);
+    border: 1px solid var(--card);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--accent2);
+  }
+
+  /* ── Section slides ── */
+  .section-slide {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 56px;
+  }
+
+  .section-number {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 3vw, 38px);
+    font-weight: 700;
+    margin-bottom: 36px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 12px;
+    width: 100%;
+  }
+
+  .content-grid {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--card);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .card p, .card li {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .card ul { padding-left: 16px; }
+
+  .card.highlight { border-color: var(--accent); }
+  .card.highlight2 { border-color: var(--accent2); }
+
+  /* ── vs row ── */
+  .vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .vs-label {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    text-align: center;
+  }
+
+  .card.bad { border-color: var(--danger); }
+  .card.bad h3 { color: var(--danger); }
+  .card.good { border-color: var(--ok); }
+  .card.good h3 { color: var(--ok); }
+
+  /* ── Architecture diagram ── */
+  .arch-diagram {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .arch-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .arch-box {
+    background: var(--surface);
+    border: 1px solid var(--card);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 12px;
+    text-align: center;
+    min-width: 110px;
+    line-height: 1.4;
+  }
+
+  .arch-box .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+  .arch-box .label { color: var(--text); font-weight: 600; }
+  .arch-box .sub { color: var(--muted); font-size: 10px; }
+
+  .arch-box.accent-box { border-color: var(--accent); }
+  .arch-box.accent2-box { border-color: var(--accent2); }
+  .arch-box.ok-box { border-color: var(--ok); }
+
+  .arrow {
+    color: var(--muted);
+    font-size: 18px;
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+
+  .arrow-down {
+    text-align: center;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* ── Stack grid ── */
+  .stack-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .stack-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .stack-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .stack-info p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Dataset section ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .pipe-step {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--card);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .pipe-step .ps-num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 20px;
+    margin-bottom: 6px;
+  }
+
+  .pipe-step .ps-label { color: var(--text); font-weight: 600; display: block; margin-bottom: 2px; }
+  .pipe-step .ps-sub   { color: var(--muted); }
+
+  .pipe-arrow { color: var(--accent); font-size: 18px; padding: 0 6px; flex-shrink: 0; }
+
+  /* ── Results ── */
+  .metric-big {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .tag-ok { background: rgba(62,207,142,.15); color: var(--ok); }
+  .tag-warn { background: rgba(240,165,0,.15); color: var(--accent); }
+
+  .value-list { list-style: none; }
+  .value-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--card);
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .value-list li:last-child { border-bottom: none; }
+  .value-list .check { color: var(--ok); font-size: 15px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 800px) {
+    .slide { padding: 32px 24px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .vs-row { grid-template-columns: 1fr; }
+    .vs-label { display: none; }
+    .pipeline { flex-direction: column; }
+    .pipe-arrow { transform: rotate(90deg); }
+    .arch-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ─────────────── SLIDE 0 – COVER ─────────────── -->
+  <div class="slide cover active" data-index="0">
+    <div class="eyebrow">Trabajo Final &nbsp;·&nbsp; IoT e Inteligencia Artificial</div>
+    <h1>Monitoreo Inteligente de<br><span>Pozo Petrolero</span></h1>
+    <p class="subtitle">Detección de anomalías en tiempo real con IoT, redes neuronales y LLM</p>
+    <div class="pill-row">
+      <span class="pill">Node-RED</span>
+      <span class="pill">MQTT</span>
+      <span class="pill">brain.js MLP</span>
+      <span class="pill">SKAB Dataset</span>
+      <span class="pill">Google Gemini</span>
+      <span class="pill">ARIA</span>
+    </div>
+  </div>
+
+  <!-- ─────────────── SLIDE 1 – JUSTIFICACIÓN ─────────────── -->
+  <div class="slide section-slide" data-index="1">
+    <div class="section-number">01 &mdash; Justificación</div>
+    <h2 class="section-title">¿Por qué IoT en lugar de monitoreo tradicional?</h2>
+
+    <div class="vs-row">
+      <div class="card bad">
+        <h3>Arquitectura Tradicional</h3>
+        <ul>
+          <li>Inspecciones manuales periódicas (cada turno o día)</li>
+          <li>Detección de fallas reactiva — el daño ya ocurrió</li>
+          <li>Sin correlación entre múltiples sensores</li>
+          <li>Costos elevados de parada no planificada</li>
+          <li>Dependencia de la experiencia del operador</li>
+        </ul>
+      </div>
+      <div class="vs-label">VS</div>
+      <div class="card good">
+        <h3>Solución IoT + IA</h3>
+        <ul>
+          <li>Telemetría continua cada segundo vía MQTT</li>
+          <li>Detección predictiva — anomalía clasificada al instante</li>
+          <li>Correlación automática de presión, temperatura, vibración y caudal</li>
+          <li>Reducción del tiempo de respuesta a &lt; 10 segundos</li>
+          <li>Reporte automático en lenguaje natural (ARIA)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card highlight" style="width:100%">
+      <h3>Caso de uso específico</h3>
+      <p>Un pozo petrolero en operación continua genera fallos costosos si no se detectan a tiempo. La presión caída, vibración elevada o temperatura fuera de rango son señales que un sistema IoT puede capturar y clasificar antes de que escalen a falla crítica, minimizando tiempo improductivo y riesgo operativo.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────── SLIDE 2 – ARQUITECTURA ─────────────── -->
+  <div class="slide section-slide" data-index="2">
+    <div class="section-number">02 &mdash; Arquitectura</div>
+    <h2 class="section-title">Diagrama de la solución</h2>
+
+    <div class="arch-diagram">
+      <!-- Row 1: Data source -->
+      <div class="arch-row">
+        <div class="arch-box accent-box">
+          <span class="icon">🛢️</span>
+          <span class="label">Sensores del Pozo</span>
+          <span class="sub">Presión · Temp · Vibración · Caudal</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">🐍</span>
+          <span class="label">skab_replay.py</span>
+          <span class="sub">SKAB CSV → payload MQTT</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box accent2-box">
+          <span class="icon">📡</span>
+          <span class="label">HiveMQ Broker</span>
+          <span class="sub">broker.hivemq.com:1883</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">🔐</span>
+          <span class="label">Validar Token</span>
+          <span class="sub">WELL_TOKEN auth</span>
+        </div>
+      </div>
+
+      <div class="arrow-down">↓</div>
+
+      <!-- Row 2: Processing -->
+      <div class="arch-row">
+        <div class="arch-box">
+          <span class="icon">⚙️</span>
+          <span class="label">Escalar Sensores</span>
+          <span class="sub">ADC → PSI · °C · mm/s · bbl/d</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box accent-box">
+          <span class="icon">📦</span>
+          <span class="label">Buffer Fijo × 10</span>
+          <span class="sub">Ventana no-solapada</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">📊</span>
+          <span class="label">Cálculo de Features</span>
+          <span class="sub">avg · std · min · max · trend</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box ok-box">
+          <span class="icon">🧠</span>
+          <span class="label">MLP brain.js</span>
+          <span class="sub">20 features → normal / anomaly</span>
+        </div>
+      </div>
+
+      <div class="arrow-down">↓</div>
+
+      <!-- Row 3: Output -->
+      <div class="arch-row">
+        <div class="arch-box accent2-box">
+          <span class="icon">📈</span>
+          <span class="label">Dashboard /ui</span>
+          <span class="sub">Gauges · Estado · Accuracy</span>
+        </div>
+        <div class="arrow" style="transform:rotate(180deg)">→</div>
+        <div class="arch-box">
+          <span class="icon">🚦</span>
+          <span class="label">Status Gate</span>
+          <span class="sub">3 predicciones consecutivas</span>
+        </div>
+        <div class="arrow" style="transform:rotate(180deg)">→</div>
+        <div class="arch-box accent-box">
+          <span class="icon">✨</span>
+          <span class="label">ARIA / Gemini</span>
+          <span class="sub">Reporte operativo en español</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── SLIDE 3 – STACK ─────────────── -->
+  <div class="slide section-slide" data-index="3">
+    <div class="section-number">03 &mdash; Stack Tecnológico</div>
+    <h2 class="section-title">Hardware, software y plataformas</h2>
+
+    <div class="content-grid grid-2" style="width:100%">
+      <div class="card">
+        <h3>Plataforma IoT</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+          <div class="stack-item">
+            <div class="stack-icon">🔴</div>
+            <div class="stack-info">
+              <h4>Node-RED</h4>
+              <p>Motor de flujos. Orquesta ingesta, procesamiento, inferencia y visualización. Flows definidos en flows.json.</p>
+            </div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon">📡</div>
+            <div class="stack-info">
+              <h4>MQTT &mdash; HiveMQ público</h4>
+              <p>Protocolo liviano pub/sub. Topic: <code style="color:var(--accent2)">cursoiot/well1/sensor</code>. QoS 1.</p>
+            </div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon">📊</div>
+            <div class="stack-info">
+              <h4>Node-RED Dashboard</h4>
+              <p>Gauges de sensores, estado de pozo, accuracy en vivo y reporte ARIA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Inteligencia Artificial</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+          <div class="stack-item">
+            <div class="stack-icon">🧠</div>
+            <div class="stack-info">
+              <h4>brain.js &mdash; MLP Feedforward</h4>
+              <p>Red neuronal entrenada en deploy. Entrada: 20 features estadísticas. Salida: {normal, anomaly}.</p>
+            </div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon">✨</div>
+            <div class="stack-info">
+              <h4>Google Gemini &mdash; gemini-3.1-flash-lite</h4>
+              <p>LLM que genera el reporte operativo ARIA en español con diagnóstico, alertas y acciones recomendadas.</p>
+            </div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon">🐍</div>
+            <div class="stack-info">
+              <h4>Python &mdash; skab_replay.py</h4>
+              <p>Reproduce datos SKAB reales como mensajes MQTT simulando el flujo de telemetría del pozo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── SLIDE 4 – DATASET e IA ─────────────── -->
+  <div class="slide section-slide" data-index="4">
+    <div class="section-number">04 &mdash; Dataset e IA</div>
+    <h2 class="section-title">SKAB Dataset y pipeline de datos</h2>
+
+    <div class="pipeline">
+      <div class="pipe-step">
+        <span class="ps-num">1</span>
+        <span class="ps-label">SKAB CSV</span>
+        <span class="ps-sub">745–1191 filas por archivo<br>1.csv → 4.csv · 384 secuencias</span>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="ps-num">2</span>
+        <span class="ps-label">Remapeo por label</span>
+        <span class="ps-sub">Presión / temp / vibración / caudal<br>a rangos de pozo real</span>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="ps-num">3</span>
+        <span class="ps-label">Ventanas × 10</span>
+        <span class="ps-sub">No-solapadas (step = 10)<br>Alineadas con buffer de inferencia</span>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="ps-num">4</span>
+        <span class="ps-label">20 features</span>
+        <span class="ps-sub">avg · std · min · max · trend<br>× 4 sensores → [0, 1]</span>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="ps-num">5</span>
+        <span class="ps-label">Train 80 / Eval 20</span>
+        <span class="ps-sub">307 entrenamiento<br>77 holdout</span>
+      </div>
+    </div>
+
+    <div class="content-grid grid-3" style="width:100%">
+      <div class="card highlight">
+        <h3>Dataset</h3>
+        <ul>
+          <li>SKAB — Skoltech Anomaly Benchmark</li>
+          <li>Datos reales de bomba industrial</li>
+          <li>Columnas: Presión, Thermocouple, Acelerómetro, Caudal, anomaly</li>
+          <li>Etiquetas: <strong>normal</strong> vs <strong>anomaly</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Arquitectura del MLP</h3>
+        <ul>
+          <li>Tipo: Feedforward (brain.js nntype 0)</li>
+          <li>Entrada: 20 neuronas (features)</li>
+          <li>Salida: 2 clases {normal, anomaly}</li>
+          <li>Entrena en deploy, 500 iteraciones</li>
+          <li>Inferencia cada 10 muestras MQTT</li>
+        </ul>
+      </div>
+      <div class="card highlight2">
+        <h3>Decisiones de diseño</h3>
+        <ul>
+          <li>Buffer fijo (no deslizante) para alinear distribución de features</li>
+          <li>Label por voto mayoritario de la ventana</li>
+          <li>Normalización idéntica en entrenamiento e inferencia</li>
+          <li>Status Gate: 3 confirmaciones antes de llamar a Gemini</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── SLIDE 5 – RESULTADOS ─────────────── -->
+  <div class="slide section-slide" data-index="5">
+    <div class="section-number">05 &mdash; Resultados y Valor</div>
+    <h2 class="section-title">Demostración de resultados</h2>
+
+    <div class="content-grid grid-2" style="width:100%;margin-bottom:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="metric-card">
+          <div class="metric-big">99.5%</div>
+          <div class="metric-label">Model Accuracy (holdout)</div>
+          <span class="tag tag-ok">Clasificación correcta</span>
+        </div>
+        <div class="metric-card">
+          <div class="metric-big">~70%</div>
+          <div class="metric-label">Balanced Accuracy en vivo</div>
+          <span class="tag tag-warn">Datos reales MQTT</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Valor generado</h3>
+        <ul class="value-list">
+          <li><span class="check">✓</span> Detección de anomalías en &lt;10 segundos (1 ventana de 10 muestras a 1 Hz)</li>
+          <li><span class="check">✓</span> Reporte ARIA automático en español con diagnóstico, alertas y acciones</li>
+          <li><span class="check">✓</span> Dashboard en tiempo real: 4 gauges + estado + accuracy</li>
+          <li><span class="check">✓</span> Rate limiting de LLM (gate 3×): evita sobrecosto en API Gemini</li>
+          <li><span class="check">✓</span> Pipeline reproducible desde dataset real (SKAB open source)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="width:100%">
+      <h3>Análisis de la brecha holdout vs. live accuracy</h3>
+      <p>El holdout evalúa secuencias puras del mismo dataset de entrenamiento (SKAB 1–4.csv), de ahí el 99.5%. La accuracy en vivo es menor porque los datos MQTT incluyen <strong>ventanas de transición</strong> (el pozo cambia de estado a mitad de una ventana de 10 muestras) que el modelo no vio durante el entrenamiento. Esto es un desafío inherente a la clasificación de series de tiempo en streaming y puede mejorarse entrenando con ventanas deslizantes (step=1) o adoptando un modelo recurrente (LSTM).</p>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="btn-prev" onclick="navigate(-1)" disabled>&#8592;</button>
+  <span id="slide-counter">1 / 6</span>
+  <button id="btn-next" onclick="navigate(1)">&#8594;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let current  = 0;
+
+  function updateUI() {
+    document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === total - 1;
+    document.getElementById('progress-bar').style.width = ((current / (total - 1)) * 100) + '%';
+  }
+
+  function navigate(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= total) return;
+
+    slides[current].classList.remove('active');
+    slides[current].classList.add(dir > 0 ? 'exit-left' : '');
+    setTimeout(() => slides[current].classList.remove('exit-left'), 400);
+
+    current = next;
+    slides[current].classList.add('active');
+    updateUI();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
